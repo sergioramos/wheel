@@ -6,24 +6,23 @@ var callbacks = {}
 
 module.exports.bind = function (el, callback, capture) {
   var handle = function (ev) {
-    var e = {original: ev}
     var delta = 0
     var absDelta = 0
     var deltaX = 0
     var deltaY = 0
 
     // Old school scrollwheel delta
-    if('detail' in e)
-      deltaY = e.detail * -1
-    if('wheelDelta' in e)
-      deltaY = e.wheelDelta
-    if('wheelDeltaY' in e)
-      deltaY = e.wheelDeltaY
-    if('wheelDeltaX' in e)
-      deltaX = e.wheelDeltaX * -1
+    if('detail' in ev)
+      deltaY = ev.detail * -1
+    if('wheelDelta' in ev)
+      deltaY = ev.wheelDelta
+    if('wheelDeltaY' in ev)
+      deltaY = ev.wheelDeltaY
+    if('wheelDeltaX' in ev)
+      deltaX = ev.wheelDeltaX * -1
 
     // Firefox < 17 horizontal scrolling related to DOMMouseScroll event
-    if ('axis' in e && e.axis === e.HORIZONTAL_AXIS) {
+    if ('axis' in ev && ev.axis === ev.HORIZONTAL_AXIS) {
       deltaX = deltaY * -1;
       deltaY = 0;
     }
@@ -54,11 +53,6 @@ module.exports.bind = function (el, callback, capture) {
     deltaX = Math[deltaX >= 1 ? 'floor' : 'ceil'](deltaX/lowestDelta)
     deltaY = Math[deltaY >= 1 ? 'floor' : 'ceil'](deltaY/lowestDelta)
 
-    // Add information to the event object
-    e.deltaX = deltaX
-    e.deltaY = deltaY
-    e.deltaFactor = lowestDelta
-
     // Clearout lowestDelta after sometime to better
     // handle multiple device types that give different
     // a different lowestDelta
@@ -71,7 +65,13 @@ module.exports.bind = function (el, callback, capture) {
     nullLowestDeltaTimeout = setTimeout(nullLowestDelta, 200)
 
 
-    callback(e)
+    callback({
+      original: ev,
+      delta: delta,
+      absDelta: absDelta,
+      deltaX: deltaX,
+      deltaY: deltaY
+    })
   }
 
   mousewheel.bind(el, handle, capture)
