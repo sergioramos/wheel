@@ -1,0 +1,16 @@
+{
+  "name": "wheel",
+  "version": "0.0.1",
+  "description": "normalize mousewheel delta values",
+  "repo": "ramitos/wheel",
+  "keywords": ["dom", "wheel", "mousewheel"],
+  "homepage": "https://github.com/ramitos/wheel",
+  "license": "MIT",
+  "author": "Sérgio Ramos <mail@sergioramos.me> (http://sergioramos.me)",
+  "twitter": "@ramitos",
+  "main": "src/wheel.js",
+  "scripts": ["src/wheel.js"],
+  "dependencies": {
+    "ramitos/mousewheel": "*"
+  }
+}
