@@ -1,3 +1,5 @@
+![deprecated](https://img.shields.io/badge/status-deprecated-red.svg?style=plastic)
+
 # wheel
 
 builds on  top of [ramitos/mousewheel](https://github.com/ramitos/mousewheel) to normalize mousewheel delta values based on [brandonaaron/jquery-mousewheel](https://github.com/brandonaaron/jquery-mousewheel)
